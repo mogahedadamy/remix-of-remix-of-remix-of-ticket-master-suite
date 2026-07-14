@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/layout/page-header";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
@@ -128,37 +129,35 @@ function BusesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="text-xs font-semibold text-muted-foreground">الأسطول</p>
-          <h1 className="font-display text-2xl font-extrabold text-foreground lg:text-3xl">
-            الحافلات
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            أضف حافلات وكالتك مع رقم اللوحة وعدد المقاعد والحالة.
-          </p>
-        </div>
-        <Dialog
-          open={dialogOpen}
-          onOpenChange={(o) => {
-            setDialogOpen(o);
-            if (!o) setEditing(null);
-          }}
-        >
-          <DialogTrigger asChild>
-            <Button onClick={() => setEditing(null)}>
-              <Plus className="me-2 h-4 w-4" />
-              إضافة حافلة
-            </Button>
-          </DialogTrigger>
-          <BusFormDialog
-            key={editing?.id ?? "new"}
-            initial={editing}
-            onSubmit={(f) => upsertBus.mutate(f)}
-            submitting={upsertBus.isPending}
-          />
-        </Dialog>
-      </div>
+      <PageHeader
+        eyebrow="الأسطول"
+        title="الحافلات"
+        subtitle="أضف حافلات وكالتك مع رقم اللوحة وعدد المقاعد والحالة."
+        icon={BusFront}
+        actions={
+          <Dialog
+            open={dialogOpen}
+            onOpenChange={(o) => {
+              setDialogOpen(o);
+              if (!o) setEditing(null);
+            }}
+          >
+            <DialogTrigger asChild>
+              <Button onClick={() => setEditing(null)}>
+                <Plus className="me-2 h-4 w-4" />
+                إضافة حافلة
+              </Button>
+            </DialogTrigger>
+            <BusFormDialog
+              key={editing?.id ?? "new"}
+              initial={editing}
+              onSubmit={(f) => upsertBus.mutate(f)}
+              submitting={upsertBus.isPending}
+            />
+          </Dialog>
+        }
+      />
+
 
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-card">
         {isLoading ? (

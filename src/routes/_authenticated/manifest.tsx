@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/layout/page-header";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ScrollText, Printer, Download, Search, BusFront, MapPin, CalendarClock } from "lucide-react";
@@ -119,25 +120,23 @@ function ManifestPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="text-xs font-semibold text-muted-foreground">الحجوزات والرحلات</p>
-          <h1 className="font-display text-2xl font-extrabold text-foreground lg:text-3xl">
-            المنفستو
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            كشف المسافرين لكل رحلة — للطباعة أو التصدير عند نقاط التفتيش.
-          </p>
-        </div>
-        <div className="flex gap-2">
-          <Button variant="outline" onClick={handleExport}>
-            <Download className="me-2 h-4 w-4" /> تصدير CSV
-          </Button>
-          <Button onClick={handlePrint}>
-            <Printer className="me-2 h-4 w-4" /> طباعة
-          </Button>
-        </div>
-      </div>
+      <PageHeader
+        eyebrow="الحجوزات والرحلات"
+        title="المنفستو"
+        subtitle="كشف المسافرين لكل رحلة — للطباعة أو التصدير عند نقاط التفتيش."
+        icon={ScrollText}
+        actions={
+          <>
+            <Button variant="outline" onClick={handleExport}>
+              <Download className="me-2 h-4 w-4" /> تصدير CSV
+            </Button>
+            <Button onClick={handlePrint}>
+              <Printer className="me-2 h-4 w-4" /> طباعة
+            </Button>
+          </>
+        }
+      />
+
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         <div className="space-y-2 sm:col-span-2 lg:col-span-1">

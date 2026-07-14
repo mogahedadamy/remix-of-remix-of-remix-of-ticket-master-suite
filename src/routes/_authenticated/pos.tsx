@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/layout/page-header";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Ticket, Plus, Minus, Trash2, CreditCard, Banknote, Smartphone, Search } from "lucide-react";
@@ -119,15 +120,13 @@ function POSPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <p className="text-xs font-semibold text-muted-foreground">الحجوزات والرحلات</p>
-        <h1 className="font-display text-2xl font-extrabold text-foreground lg:text-3xl">
-          نقطة البيع
-        </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          إصدار تذاكر سريعة للمسافرين واختيار المقاعد وطرق الدفع.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="الحجوزات والرحلات"
+        title="نقطة البيع"
+        subtitle="إصدار تذاكر سريعة للمسافرين واختيار المقاعد وطرق الدفع."
+        icon={Ticket}
+      />
+
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Trips + seat map */}

@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/layout/page-header";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { CalendarClock, Plus, Pencil, Trash2, Search, BusFront, MapPin } from "lucide-react";
@@ -141,32 +142,30 @@ function TripsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="text-xs font-semibold text-muted-foreground">الحجوزات والرحلات</p>
-          <h1 className="font-display text-2xl font-extrabold text-foreground lg:text-3xl">
-            الرحلات
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            جدولة الرحلات، متابعة نسب البيع، والحافلات والسائقين المخصصين.
-          </p>
-        </div>
-        <Dialog
-          open={dialogOpen}
-          onOpenChange={(o) => {
-            setDialogOpen(o);
-            if (!o) setEditing(null);
-          }}
-        >
-          <DialogTrigger asChild>
-            <Button onClick={() => setEditing(null)}>
-              <Plus className="me-2 h-4 w-4" />
-              رحلة جديدة
-            </Button>
-          </DialogTrigger>
-          <TripFormDialog key={editing?.id ?? "new"} initial={editing} onSubmit={handleSave} />
-        </Dialog>
-      </div>
+      <PageHeader
+        eyebrow="الحجوزات والرحلات"
+        title="الرحلات"
+        subtitle="جدولة الرحلات، متابعة نسب البيع، والحافلات والسائقين المخصصين."
+        icon={CalendarClock}
+        actions={
+          <Dialog
+            open={dialogOpen}
+            onOpenChange={(o) => {
+              setDialogOpen(o);
+              if (!o) setEditing(null);
+            }}
+          >
+            <DialogTrigger asChild>
+              <Button onClick={() => setEditing(null)}>
+                <Plus className="me-2 h-4 w-4" />
+                رحلة جديدة
+              </Button>
+            </DialogTrigger>
+            <TripFormDialog key={editing?.id ?? "new"} initial={editing} onSubmit={handleSave} />
+          </Dialog>
+        }
+      />
+
 
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">

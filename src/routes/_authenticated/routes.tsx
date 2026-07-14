@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/layout/page-header";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
@@ -107,37 +108,35 @@ function RoutesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="text-xs font-semibold text-muted-foreground">العمليات</p>
-          <h1 className="font-display text-2xl font-extrabold text-foreground lg:text-3xl">
-            المسارات
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            عرّف مسارات السفر بين المدن والسعر الافتراضي للتذكرة.
-          </p>
-        </div>
-        <Dialog
-          open={dialogOpen}
-          onOpenChange={(o) => {
-            setDialogOpen(o);
-            if (!o) setEditing(null);
-          }}
-        >
-          <DialogTrigger asChild>
-            <Button onClick={() => setEditing(null)}>
-              <Plus className="me-2 h-4 w-4" />
-              إضافة مسار
-            </Button>
-          </DialogTrigger>
-          <RouteFormDialog
-            key={editing?.id ?? "new"}
-            initial={editing}
-            onSubmit={(f) => upsert.mutate(f)}
-            submitting={upsert.isPending}
-          />
-        </Dialog>
-      </div>
+      <PageHeader
+        eyebrow="العمليات"
+        title="المسارات"
+        subtitle="عرّف مسارات السفر بين المدن والسعر الافتراضي للتذكرة."
+        icon={RouteIcon}
+        actions={
+          <Dialog
+            open={dialogOpen}
+            onOpenChange={(o) => {
+              setDialogOpen(o);
+              if (!o) setEditing(null);
+            }}
+          >
+            <DialogTrigger asChild>
+              <Button onClick={() => setEditing(null)}>
+                <Plus className="me-2 h-4 w-4" />
+                إضافة مسار
+              </Button>
+            </DialogTrigger>
+            <RouteFormDialog
+              key={editing?.id ?? "new"}
+              initial={editing}
+              onSubmit={(f) => upsert.mutate(f)}
+              submitting={upsert.isPending}
+            />
+          </Dialog>
+        }
+      />
+
 
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-card">
         {isLoading ? (

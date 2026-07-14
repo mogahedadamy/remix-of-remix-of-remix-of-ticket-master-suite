@@ -11,8 +11,12 @@ import {
   CheckCircle2,
   Clock,
   Wrench,
+  Sparkles,
+  ArrowUpRight,
 } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
+
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   component: DashboardPage,

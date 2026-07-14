@@ -410,16 +410,28 @@ function StatCard({
   change?: { dir: "up" | "down"; value: string };
   hint?: string;
 }) {
+  const iconBg: Record<Tone, string> = {
+    primary: "bg-gradient-primary text-primary-foreground shadow-glow",
+    success: "bg-success/15 text-success",
+    accent: "bg-gradient-navy text-white",
+    warning: "bg-warning/20 text-warning-foreground",
+    destructive: "bg-destructive/15 text-destructive",
+  };
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-card">
-      <div className="flex items-start justify-between">
-        <div className={`inline-flex h-10 w-10 items-center justify-center rounded-xl ${toneMap[tone]}`}>
+    <div className="group relative overflow-hidden rounded-3xl border border-border bg-card p-5 shadow-card transition hover:shadow-elevated hover:-translate-y-0.5">
+      <div
+        className="pointer-events-none absolute -end-6 -top-6 h-24 w-24 rounded-full opacity-0 blur-2xl transition group-hover:opacity-30"
+        style={{ background: tone === "primary" ? "var(--color-primary)" : tone === "accent" ? "var(--color-accent)" : "var(--color-success)" }}
+        aria-hidden="true"
+      />
+      <div className="relative flex items-start justify-between">
+        <div className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${iconBg[tone]}`}>
           <Icon className="h-5 w-5" />
         </div>
         {change && (
           <span
-            className={`inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-bold ${
-              change.dir === "up" ? "text-success" : "text-destructive"
+            className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold ${
+              change.dir === "up" ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive"
             }`}
           >
             {change.dir === "up" ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
@@ -427,15 +439,16 @@ function StatCard({
           </span>
         )}
       </div>
-      <p className="mt-4 text-xs font-semibold text-muted-foreground">{label}</p>
-      <div className="mt-1 flex items-baseline gap-1.5">
-        <span className="font-display text-2xl font-extrabold text-foreground tabular">{value}</span>
+      <p className="relative mt-5 text-xs font-semibold text-muted-foreground">{label}</p>
+      <div className="relative mt-1 flex items-baseline gap-1.5">
+        <span className="font-display text-3xl font-extrabold text-foreground tabular">{value}</span>
         {suffix && <span className="text-xs font-semibold text-muted-foreground">{suffix}</span>}
       </div>
-      {hint && <p className="mt-2 text-[11px] text-muted-foreground">{hint}</p>}
+      {hint && <p className="relative mt-2 text-[11px] text-muted-foreground">{hint}</p>}
     </div>
   );
 }
+
 
 function EmptyState({ icon: Icon, title, desc }: { icon: typeof Ticket; title: string; desc: string }) {
   return (

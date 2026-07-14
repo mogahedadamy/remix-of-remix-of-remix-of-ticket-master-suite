@@ -142,27 +142,24 @@ function BookingsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="text-xs font-semibold text-muted-foreground">الحجوزات والرحلات</p>
-          <h1 className="font-display text-2xl font-extrabold text-foreground lg:text-3xl">
-            الحجوزات
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            قائمة الحجوزات والتذاكر المحجوزة لدى الوكالة.
-          </p>
-        </div>
-        <Dialog
-          open={dialogOpen}
-          onOpenChange={(o) => {
-            setDialogOpen(o);
-            if (!o) setEditing(null);
-          }}
-        >
-          <DialogTrigger asChild>
-            <Button onClick={() => setEditing(null)}>
-              <Plus className="me-2 h-4 w-4" />
-              حجز جديد
+      <PageHeader
+        eyebrow="الحجوزات والرحلات"
+        title="الحجوزات"
+        subtitle="قائمة الحجوزات والتذاكر المحجوزة لدى الوكالة."
+        icon={BookOpen}
+        actions={
+          <Dialog
+            open={dialogOpen}
+            onOpenChange={(o) => {
+              setDialogOpen(o);
+              if (!o) setEditing(null);
+            }}
+          >
+            <DialogTrigger asChild>
+              <Button onClick={() => setEditing(null)}>
+                <Plus className="me-2 h-4 w-4" />
+                حجز جديد
+
             </Button>
           </DialogTrigger>
           <BookingFormDialog

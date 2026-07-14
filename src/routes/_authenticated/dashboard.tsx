@@ -266,10 +266,19 @@ function DashboardPage() {
 
       {/* Two-column: recent activity + bus status */}
       <div className="grid gap-4 lg:grid-cols-3">
-        <div className="lg:col-span-2 rounded-2xl border border-border bg-card p-5 shadow-card">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-display text-base font-bold">آخر الحجوزات</h2>
-            <span className="text-xs text-muted-foreground">آخر {recentBookings.length || 10}</span>
+        <div className="lg:col-span-2 rounded-3xl border border-border bg-card p-6 shadow-elevated">
+          <div className="mb-5 flex items-center justify-between">
+            <div>
+              <h2 className="font-display text-lg font-bold">آخر الحجوزات</h2>
+              <p className="mt-0.5 text-xs text-muted-foreground">تحديث مباشر لتذاكر الكاشير</p>
+            </div>
+            <Link
+              to="/bookings"
+              className="inline-flex items-center gap-1 rounded-lg border border-border bg-background px-3 py-1.5 text-[11px] font-bold text-foreground transition hover:border-primary hover:text-primary"
+            >
+              عرض الكل
+              <ArrowUpRight className="h-3 w-3" />
+            </Link>
           </div>
           {recentBookings.length === 0 ? (
             <EmptyState
@@ -280,18 +289,23 @@ function DashboardPage() {
           ) : (
             <ul className="divide-y divide-border">
               {recentBookings.map((b) => (
-                <li key={b.id} className="flex items-center justify-between gap-3 py-2.5">
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-foreground">
-                      {b.passenger_name}
-                    </p>
-                    <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                      {b.route ?? "—"} · مقعد {b.seat_number}
-                    </p>
+                <li key={b.id} className="flex items-center justify-between gap-3 py-3 transition hover:bg-primary-soft/40 rounded-lg px-2 -mx-2">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary-soft font-bold text-primary text-xs">
+                      {b.passenger_name.slice(0, 2)}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-semibold text-foreground">
+                        {b.passenger_name}
+                      </p>
+                      <p className="mt-0.5 truncate text-xs text-muted-foreground">
+                        {b.route ?? "—"} · مقعد {b.seat_number}
+                      </p>
+                    </div>
                   </div>
                   <div className="text-end">
                     <p className="text-sm font-bold tabular text-foreground">
-                      {b.amount.toLocaleString("ar-EG")} {profile.agency_currency}
+                      {b.amount.toLocaleString("ar-EG")} <span className="text-[10px] font-semibold text-muted-foreground">{profile.agency_currency}</span>
                     </p>
                     <p className="mt-0.5 text-[10px] text-muted-foreground">
                       {new Date(b.created_at).toLocaleTimeString("ar", { hour: "2-digit", minute: "2-digit" })}
@@ -303,9 +317,17 @@ function DashboardPage() {
           )}
         </div>
 
-        <div className="rounded-2xl border border-border bg-card p-5 shadow-card">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-display text-base font-bold">حالة الأسطول</h2>
+        <div className="rounded-3xl border border-border bg-card p-6 shadow-elevated relative overflow-hidden">
+          <div
+            className="absolute -end-8 -top-8 h-32 w-32 rounded-full opacity-10 blur-2xl"
+            style={{ background: "var(--color-primary)" }}
+            aria-hidden="true"
+          />
+          <div className="relative mb-5">
+            <h2 className="font-display text-lg font-bold">حالة الأسطول</h2>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              {totalBuses} حافلة إجمالاً
+            </p>
           </div>
           {totalBuses === 0 ? (
             <EmptyState
@@ -314,10 +336,10 @@ function DashboardPage() {
               desc="أضف حافلاتك لبدء جدولة الرحلات."
             />
           ) : (
-            <div className="space-y-2.5">
-              <BusRow icon={CheckCircle2} tone="success" label="جاهزة" value={busCounts.active} />
-              <BusRow icon={Wrench} tone="warning" label="في الصيانة" value={busCounts.maintenance} />
-              <BusRow icon={Clock} tone="destructive" label="متوقفة" value={busCounts.inactive} />
+            <div className="relative space-y-2.5">
+              <BusRow icon={CheckCircle2} tone="success" label="جاهزة" value={busCounts.active} total={totalBuses} />
+              <BusRow icon={Wrench} tone="warning" label="في الصيانة" value={busCounts.maintenance} total={totalBuses} />
+              <BusRow icon={Clock} tone="destructive" label="متوقفة" value={busCounts.inactive} total={totalBuses} />
             </div>
           )}
         </div>
@@ -331,22 +353,36 @@ function BusRow({
   tone,
   label,
   value,
+  total,
 }: {
   icon: typeof Ticket;
   tone: Tone;
   label: string;
   value: number;
+  total: number;
 }) {
+  const pct = total > 0 ? Math.round((value / total) * 100) : 0;
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-border p-3">
-      <div className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${toneMap[tone]}`}>
-        <Icon className="h-4 w-4" />
+    <div className="rounded-2xl border border-border p-3">
+      <div className="flex items-center gap-3">
+        <div className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${toneMap[tone]}`}>
+          <Icon className="h-4 w-4" />
+        </div>
+        <span className="text-sm font-semibold text-foreground">{label}</span>
+        <span className="ms-auto tabular text-sm font-bold text-foreground">{value}</span>
       </div>
-      <span className="text-sm font-semibold text-foreground">{label}</span>
-      <span className="ms-auto tabular text-sm font-bold text-foreground">{value}</span>
+      <div className="mt-2.5 h-1.5 w-full rounded-full bg-muted overflow-hidden">
+        <div
+          className={`h-full rounded-full transition-all ${
+            tone === "success" ? "bg-success" : tone === "warning" ? "bg-warning" : "bg-destructive"
+          }`}
+          style={{ width: `${pct}%` }}
+        />
+      </div>
     </div>
   );
 }
+
 
 type Tone = "primary" | "success" | "accent" | "warning" | "destructive";
 const toneMap: Record<Tone, string> = {

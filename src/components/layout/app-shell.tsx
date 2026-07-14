@@ -96,10 +96,13 @@ export function AppShell({ children }: { children: ReactNode }) {
         style={{ insetInlineStart: 0 }}
       >
         <div className="flex h-16 items-center justify-between border-b border-sidebar-border px-4">
-          <Link to="/dashboard" className="flex items-center gap-2.5">
-            <img src={logo.url} alt="TICKETTY" className="h-9 w-9 rounded-lg object-contain" />
+          <Link to="/dashboard" className="flex items-center gap-2.5 group">
+            <div className="relative">
+              <div className="absolute inset-0 rounded-xl bg-gradient-primary opacity-30 blur-md transition group-hover:opacity-60" aria-hidden="true" />
+              <img src={logo.url} alt="TICKETTY" className="relative h-10 w-10 rounded-xl object-contain bg-white p-1 shadow-card" />
+            </div>
             <div className="leading-tight">
-              <p className="font-display text-sm font-extrabold text-primary">TICKETTY</p>
+              <p className="font-display text-sm font-extrabold text-primary tracking-tight">TICKETTY</p>
               <p className="text-[10px] text-muted-foreground">ERP · النقل البري</p>
             </div>
           </Link>
@@ -111,6 +114,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <X className="h-4 w-4" />
           </button>
         </div>
+
 
         <nav className="flex flex-col gap-6 overflow-y-auto p-3" style={{ height: "calc(100dvh - 4rem)" }}>
           {NAV.map((group) => (

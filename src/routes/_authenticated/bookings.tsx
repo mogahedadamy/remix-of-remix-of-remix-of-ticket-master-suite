@@ -159,16 +159,17 @@ function BookingsPage() {
               <Button onClick={() => setEditing(null)}>
                 <Plus className="me-2 h-4 w-4" />
                 حجز جديد
+              </Button>
+            </DialogTrigger>
+            <BookingFormDialog
+              key={editing?.id ?? "new"}
+              initial={editing}
+              onSubmit={handleSave}
+            />
+          </Dialog>
+        }
+      />
 
-            </Button>
-          </DialogTrigger>
-          <BookingFormDialog
-            key={editing?.id ?? "new"}
-            initial={editing}
-            onSubmit={handleSave}
-          />
-        </Dialog>
-      </div>
 
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">

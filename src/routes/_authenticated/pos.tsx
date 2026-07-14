@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/layout/page-header";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Ticket, Plus, Minus, Trash2, CreditCard, Banknote, Smartphone, Search } from "lucide-react";

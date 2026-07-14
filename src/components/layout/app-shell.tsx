@@ -141,10 +141,10 @@ export function AppShell({ children }: { children: ReactNode }) {
                       ) : (
                         <Link
                           to={item.to}
-                          className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm font-medium transition ${
+                          className={`relative flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-medium transition ${
                             active
-                              ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                              : "text-sidebar-foreground/85 hover:bg-sidebar-accent/60"
+                              ? "bg-gradient-primary text-primary-foreground shadow-glow"
+                              : "text-sidebar-foreground/85 hover:bg-sidebar-accent/60 hover:text-primary"
                           }`}
                         >
                           <item.icon className="h-4 w-4" />

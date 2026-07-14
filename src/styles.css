@@ -200,3 +200,29 @@
     font-variant-numeric: tabular-nums;
   }
 }
+
+@utility bg-gradient-primary {
+  background-image: var(--gradient-primary);
+}
+@utility bg-gradient-hero {
+  background-image: var(--gradient-hero);
+}
+@utility bg-gradient-navy {
+  background-image: var(--gradient-navy);
+}
+@utility bg-gradient-soft {
+  background-image: var(--gradient-soft);
+}
+@utility shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+@utility shadow-elevated {
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Subtle decorative dot grid used behind hero areas */
+@utility bg-dot-grid {
+  background-image: radial-gradient(oklch(1 0 0 / 0.12) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+

@@ -173,15 +173,29 @@ function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <p className="text-xs font-semibold text-muted-foreground">نظرة عامة</p>
-        <div className="mt-1 flex flex-wrap items-end justify-between gap-3">
+      {/* Hero header */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-hero p-6 text-white shadow-glow lg:p-8">
+        <div className="absolute inset-0 bg-dot-grid opacity-40" aria-hidden="true" />
+        <div
+          className="absolute -end-16 -top-16 h-56 w-56 rounded-full opacity-30 blur-3xl"
+          style={{ background: "var(--color-primary-glow)" }}
+          aria-hidden="true"
+        />
+        <div
+          className="absolute -bottom-20 -start-10 h-56 w-56 rounded-full opacity-25 blur-3xl"
+          style={{ background: "var(--color-brand-navy)" }}
+          aria-hidden="true"
+        />
+        <div className="relative flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="font-display text-2xl font-extrabold text-foreground lg:text-3xl">
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider backdrop-blur">
+              <Sparkles className="h-3 w-3" />
+              نظرة عامة
+            </div>
+            <h1 className="mt-3 font-display text-3xl font-extrabold leading-tight lg:text-4xl">
               أهلاً، {profile.full_name || "بك"} 👋
             </h1>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-2 text-sm text-white/85">
               {profile.agency_name ? `وكالة ${profile.agency_name}` : "لوحة تحكم الوكالة"}
               {" · "}
               {new Date().toLocaleDateString("ar", {
@@ -192,11 +206,26 @@ function DashboardPage() {
               })}
             </p>
           </div>
-          <div className="rounded-xl border border-dashed border-border bg-card px-4 py-2 text-xs text-muted-foreground">
-            تحديث تلقائي كل دقيقة
+          <div className="flex flex-wrap items-center gap-2">
+            <Link
+              to="/pos"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-primary shadow-elevated transition hover:scale-[1.02]"
+            >
+              <Ticket className="h-4 w-4" />
+              بيع تذكرة
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </Link>
+            <Link
+              to="/trips"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-white/25 bg-white/10 px-4 py-2.5 text-sm font-bold text-white backdrop-blur transition hover:bg-white/20"
+            >
+              <CalendarClock className="h-4 w-4" />
+              الرحلات
+            </Link>
           </div>
         </div>
       </div>
+
 
       {/* KPI Grid */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

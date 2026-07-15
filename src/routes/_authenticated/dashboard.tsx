@@ -110,7 +110,7 @@ async function loadDashboard(): Promise<DashboardData> {
       .gte("departure_at", today.toISOString())
       .lte("departure_at", endOfDay(now).toISOString())
       .in("status", ["scheduled", "boarding", "departed"]),
-    supabase.from("buses").select("status, capacity"),
+    supabase.from("buses").select("status, seat_count"),
     supabase
       .from("bookings")
       .select("id, passenger_name, seat_number, amount, status, created_at, trips(routes(origin, destination))")
@@ -118,7 +118,7 @@ async function loadDashboard(): Promise<DashboardData> {
       .limit(8),
     supabase
       .from("trips")
-      .select("id, departure_at, status, buses(capacity), routes(origin, destination), bookings(id, status)")
+      .select("id, departure_at, status, buses(seat_count), routes(origin, destination), bookings(id, status)")
       .gte("departure_at", now.toISOString())
       .eq("status", "scheduled")
       .order("departure_at", { ascending: true })
@@ -161,7 +161,7 @@ async function loadDashboard(): Promise<DashboardData> {
   for (const b of busesRes.data ?? []) {
     const s = b.status as BusStatus;
     if (s in busCounts) busCounts[s] += 1;
-    totalCapacity += Number(b.capacity ?? 0);
+    totalCapacity += Number(b.seat_count ?? 0);
   }
 
   const recentBookings = (recentBookingsRes.data ?? []).map((b) => {
@@ -182,7 +182,7 @@ async function loadDashboard(): Promise<DashboardData> {
   const upcomingTrips: UpcomingTrip[] = (upcomingRes.data ?? []).map((t) => {
     const bus = Array.isArray(t.buses) ? t.buses[0] : t.buses;
     const routeObj = Array.isArray(t.routes) ? t.routes[0] : t.routes;
-    const capacity = Number((bus as { capacity?: number } | null)?.capacity ?? 0);
+    const capacity = Number((bus as { seat_count?: number } | null)?.seat_count ?? 0);
     const bookingsList = (t.bookings ?? []) as Array<{ status: string }>;
     const booked = bookingsList.filter((b) => b.status === "confirmed").length;
     return {

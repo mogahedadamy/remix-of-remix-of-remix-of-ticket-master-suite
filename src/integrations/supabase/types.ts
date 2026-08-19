@@ -148,6 +148,101 @@ export type Database = {
           },
         ]
       }
+      drivers: {
+        Row: {
+          agency_id: string
+          created_at: string
+          full_name: string
+          id: string
+          license_number: string | null
+          phone: string | null
+          status: Database["public"]["Enums"]["driver_status"]
+          updated_at: string
+        }
+        Insert: {
+          agency_id: string
+          created_at?: string
+          full_name: string
+          id?: string
+          license_number?: string | null
+          phone?: string | null
+          status?: Database["public"]["Enums"]["driver_status"]
+          updated_at?: string
+        }
+        Update: {
+          agency_id?: string
+          created_at?: string
+          full_name?: string
+          id?: string
+          license_number?: string | null
+          phone?: string | null
+          status?: Database["public"]["Enums"]["driver_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "drivers_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      expenses: {
+        Row: {
+          agency_id: string
+          amount: number
+          category: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          spent_at: string
+          trip_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          agency_id: string
+          amount?: number
+          category: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          spent_at?: string
+          trip_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          agency_id?: string
+          amount?: number
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          spent_at?: string
+          trip_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "expenses_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expenses_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           agency_id: string | null
@@ -230,6 +325,7 @@ export type Database = {
           bus_id: string
           created_at: string
           departure_at: string
+          driver_id: string | null
           id: string
           price: number
           route_id: string
@@ -241,6 +337,7 @@ export type Database = {
           bus_id: string
           created_at?: string
           departure_at: string
+          driver_id?: string | null
           id?: string
           price?: number
           route_id: string
@@ -252,6 +349,7 @@ export type Database = {
           bus_id?: string
           created_at?: string
           departure_at?: string
+          driver_id?: string | null
           id?: string
           price?: number
           route_id?: string
@@ -271,6 +369,13 @@ export type Database = {
             columns: ["bus_id"]
             isOneToOne: false
             referencedRelation: "buses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trips_driver_id_fkey"
+            columns: ["driver_id"]
+            isOneToOne: false
+            referencedRelation: "drivers"
             referencedColumns: ["id"]
           },
           {
@@ -339,6 +444,7 @@ export type Database = {
         | "inspector"
       booking_status: "confirmed" | "cancelled"
       bus_status: "active" | "maintenance" | "inactive"
+      driver_status: "active" | "on_leave" | "inactive"
       trip_status:
         | "scheduled"
         | "boarding"
@@ -483,6 +589,7 @@ export const Constants = {
       ],
       booking_status: ["confirmed", "cancelled"],
       bus_status: ["active", "maintenance", "inactive"],
+      driver_status: ["active", "on_leave", "inactive"],
       trip_status: [
         "scheduled",
         "boarding",

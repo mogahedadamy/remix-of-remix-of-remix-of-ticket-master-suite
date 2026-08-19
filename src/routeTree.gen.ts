@@ -16,6 +16,7 @@ import { Route as AuthenticatedTripsRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedRoutesRouteImport } from './routes/_authenticated/routes'
 import { Route as AuthenticatedPosRouteImport } from './routes/_authenticated/pos'
 import { Route as AuthenticatedManifestRouteImport } from './routes/_authenticated/manifest'
+import { Route as AuthenticatedDriversRouteImport } from './routes/_authenticated/drivers'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedBusesRouteImport } from './routes/_authenticated/buses'
 import { Route as AuthenticatedBookingsRouteImport } from './routes/_authenticated/bookings'
@@ -54,6 +55,11 @@ const AuthenticatedManifestRoute = AuthenticatedManifestRouteImport.update({
   path: '/manifest',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedDriversRoute = AuthenticatedDriversRouteImport.update({
+  id: '/drivers',
+  path: '/drivers',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/bookings': typeof AuthenticatedBookingsRoute
   '/buses': typeof AuthenticatedBusesRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/drivers': typeof AuthenticatedDriversRoute
   '/manifest': typeof AuthenticatedManifestRoute
   '/pos': typeof AuthenticatedPosRoute
   '/routes': typeof AuthenticatedRoutesRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/bookings': typeof AuthenticatedBookingsRoute
   '/buses': typeof AuthenticatedBusesRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/drivers': typeof AuthenticatedDriversRoute
   '/manifest': typeof AuthenticatedManifestRoute
   '/pos': typeof AuthenticatedPosRoute
   '/routes': typeof AuthenticatedRoutesRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/_authenticated/bookings': typeof AuthenticatedBookingsRoute
   '/_authenticated/buses': typeof AuthenticatedBusesRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/drivers': typeof AuthenticatedDriversRoute
   '/_authenticated/manifest': typeof AuthenticatedManifestRoute
   '/_authenticated/pos': typeof AuthenticatedPosRoute
   '/_authenticated/routes': typeof AuthenticatedRoutesRoute
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
     | '/bookings'
     | '/buses'
     | '/dashboard'
+    | '/drivers'
     | '/manifest'
     | '/pos'
     | '/routes'
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
     | '/bookings'
     | '/buses'
     | '/dashboard'
+    | '/drivers'
     | '/manifest'
     | '/pos'
     | '/routes'
@@ -136,6 +147,7 @@ export interface FileRouteTypes {
     | '/_authenticated/bookings'
     | '/_authenticated/buses'
     | '/_authenticated/dashboard'
+    | '/_authenticated/drivers'
     | '/_authenticated/manifest'
     | '/_authenticated/pos'
     | '/_authenticated/routes'
@@ -199,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedManifestRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/drivers': {
+      id: '/_authenticated/drivers'
+      path: '/drivers'
+      fullPath: '/drivers'
+      preLoaderRoute: typeof AuthenticatedDriversRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -227,6 +246,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedBookingsRoute: typeof AuthenticatedBookingsRoute
   AuthenticatedBusesRoute: typeof AuthenticatedBusesRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedDriversRoute: typeof AuthenticatedDriversRoute
   AuthenticatedManifestRoute: typeof AuthenticatedManifestRoute
   AuthenticatedPosRoute: typeof AuthenticatedPosRoute
   AuthenticatedRoutesRoute: typeof AuthenticatedRoutesRoute
@@ -237,6 +257,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBookingsRoute: AuthenticatedBookingsRoute,
   AuthenticatedBusesRoute: AuthenticatedBusesRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedDriversRoute: AuthenticatedDriversRoute,
   AuthenticatedManifestRoute: AuthenticatedManifestRoute,
   AuthenticatedPosRoute: AuthenticatedPosRoute,
   AuthenticatedRoutesRoute: AuthenticatedRoutesRoute,

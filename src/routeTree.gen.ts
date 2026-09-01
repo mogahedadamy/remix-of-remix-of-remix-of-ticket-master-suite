@@ -16,6 +16,7 @@ import { Route as AuthenticatedTripsRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedRoutesRouteImport } from './routes/_authenticated/routes'
 import { Route as AuthenticatedReportsRouteImport } from './routes/_authenticated/reports'
 import { Route as AuthenticatedPosRouteImport } from './routes/_authenticated/pos'
+import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated/notifications'
 import { Route as AuthenticatedManifestRouteImport } from './routes/_authenticated/manifest'
 import { Route as AuthenticatedEmployeesRouteImport } from './routes/_authenticated/employees'
 import { Route as AuthenticatedDriversRouteImport } from './routes/_authenticated/drivers'
@@ -58,6 +59,12 @@ const AuthenticatedPosRoute = AuthenticatedPosRouteImport.update({
   path: '/pos',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedNotificationsRoute =
+  AuthenticatedNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedManifestRoute = AuthenticatedManifestRouteImport.update({
   id: '/manifest',
   path: '/manifest',
@@ -104,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/drivers': typeof AuthenticatedDriversRoute
   '/employees': typeof AuthenticatedEmployeesRoute
   '/manifest': typeof AuthenticatedManifestRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
   '/pos': typeof AuthenticatedPosRoute
   '/reports': typeof AuthenticatedReportsRoute
   '/routes': typeof AuthenticatedRoutesRoute
@@ -119,6 +127,7 @@ export interface FileRoutesByTo {
   '/drivers': typeof AuthenticatedDriversRoute
   '/employees': typeof AuthenticatedEmployeesRoute
   '/manifest': typeof AuthenticatedManifestRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
   '/pos': typeof AuthenticatedPosRoute
   '/reports': typeof AuthenticatedReportsRoute
   '/routes': typeof AuthenticatedRoutesRoute
@@ -136,6 +145,7 @@ export interface FileRoutesById {
   '/_authenticated/drivers': typeof AuthenticatedDriversRoute
   '/_authenticated/employees': typeof AuthenticatedEmployeesRoute
   '/_authenticated/manifest': typeof AuthenticatedManifestRoute
+  '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
   '/_authenticated/pos': typeof AuthenticatedPosRoute
   '/_authenticated/reports': typeof AuthenticatedReportsRoute
   '/_authenticated/routes': typeof AuthenticatedRoutesRoute
@@ -153,6 +163,7 @@ export interface FileRouteTypes {
     | '/drivers'
     | '/employees'
     | '/manifest'
+    | '/notifications'
     | '/pos'
     | '/reports'
     | '/routes'
@@ -168,6 +179,7 @@ export interface FileRouteTypes {
     | '/drivers'
     | '/employees'
     | '/manifest'
+    | '/notifications'
     | '/pos'
     | '/reports'
     | '/routes'
@@ -184,6 +196,7 @@ export interface FileRouteTypes {
     | '/_authenticated/drivers'
     | '/_authenticated/employees'
     | '/_authenticated/manifest'
+    | '/_authenticated/notifications'
     | '/_authenticated/pos'
     | '/_authenticated/reports'
     | '/_authenticated/routes'
@@ -247,6 +260,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPosRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/notifications': {
+      id: '/_authenticated/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AuthenticatedNotificationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/manifest': {
       id: '/_authenticated/manifest'
       path: '/manifest'
@@ -307,6 +327,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDriversRoute: typeof AuthenticatedDriversRoute
   AuthenticatedEmployeesRoute: typeof AuthenticatedEmployeesRoute
   AuthenticatedManifestRoute: typeof AuthenticatedManifestRoute
+  AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
   AuthenticatedPosRoute: typeof AuthenticatedPosRoute
   AuthenticatedReportsRoute: typeof AuthenticatedReportsRoute
   AuthenticatedRoutesRoute: typeof AuthenticatedRoutesRoute
@@ -321,6 +342,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDriversRoute: AuthenticatedDriversRoute,
   AuthenticatedEmployeesRoute: AuthenticatedEmployeesRoute,
   AuthenticatedManifestRoute: AuthenticatedManifestRoute,
+  AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
   AuthenticatedPosRoute: AuthenticatedPosRoute,
   AuthenticatedReportsRoute: AuthenticatedReportsRoute,
   AuthenticatedRoutesRoute: AuthenticatedRoutesRoute,

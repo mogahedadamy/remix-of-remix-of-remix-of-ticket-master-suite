@@ -48,22 +48,22 @@ const NAV: NavGroup[] = [
     items: [
       { to: "/buses", label: "الحافلات", icon: BusFront },
       { to: "/routes", label: "المسارات", icon: RouteIcon },
-      { to: "/drivers", label: "السائقون", icon: Users, disabled: true },
+      { to: "/drivers", label: "السائقون", icon: Users },
     ],
   },
   {
     label: "الإدارة والمالية",
     items: [
-      { to: "/employees", label: "الموظفون", icon: UserCog, disabled: true },
-      { to: "/accounting", label: "المحاسبة", icon: Wallet, disabled: true },
-      { to: "/reports", label: "التقارير", icon: BarChart3, disabled: true },
+      { to: "/employees", label: "الموظفون", icon: UserCog },
+      { to: "/accounting", label: "المحاسبة", icon: Wallet },
+      { to: "/reports", label: "التقارير", icon: BarChart3 },
     ],
   },
   {
     label: "النظام",
     items: [
-      { to: "/notifications", label: "التنبيهات", icon: Bell, disabled: true },
-      { to: "/settings", label: "إعدادات الوكالة", icon: Settings, disabled: true },
+      { to: "/notifications", label: "التنبيهات", icon: Bell },
+      { to: "/settings", label: "إعدادات الوكالة", icon: Settings },
     ],
   },
 ];

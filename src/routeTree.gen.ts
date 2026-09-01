@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedTripsRouteImport } from './routes/_authenticated/trips'
 import { Route as AuthenticatedRoutesRouteImport } from './routes/_authenticated/routes'
+import { Route as AuthenticatedReportsRouteImport } from './routes/_authenticated/reports'
 import { Route as AuthenticatedPosRouteImport } from './routes/_authenticated/pos'
 import { Route as AuthenticatedManifestRouteImport } from './routes/_authenticated/manifest'
 import { Route as AuthenticatedEmployeesRouteImport } from './routes/_authenticated/employees'
@@ -45,6 +46,11 @@ const AuthenticatedTripsRoute = AuthenticatedTripsRouteImport.update({
 const AuthenticatedRoutesRoute = AuthenticatedRoutesRouteImport.update({
   id: '/routes',
   path: '/routes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedReportsRoute = AuthenticatedReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPosRoute = AuthenticatedPosRouteImport.update({
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/employees': typeof AuthenticatedEmployeesRoute
   '/manifest': typeof AuthenticatedManifestRoute
   '/pos': typeof AuthenticatedPosRoute
+  '/reports': typeof AuthenticatedReportsRoute
   '/routes': typeof AuthenticatedRoutesRoute
   '/trips': typeof AuthenticatedTripsRoute
 }
@@ -113,6 +120,7 @@ export interface FileRoutesByTo {
   '/employees': typeof AuthenticatedEmployeesRoute
   '/manifest': typeof AuthenticatedManifestRoute
   '/pos': typeof AuthenticatedPosRoute
+  '/reports': typeof AuthenticatedReportsRoute
   '/routes': typeof AuthenticatedRoutesRoute
   '/trips': typeof AuthenticatedTripsRoute
 }
@@ -129,6 +137,7 @@ export interface FileRoutesById {
   '/_authenticated/employees': typeof AuthenticatedEmployeesRoute
   '/_authenticated/manifest': typeof AuthenticatedManifestRoute
   '/_authenticated/pos': typeof AuthenticatedPosRoute
+  '/_authenticated/reports': typeof AuthenticatedReportsRoute
   '/_authenticated/routes': typeof AuthenticatedRoutesRoute
   '/_authenticated/trips': typeof AuthenticatedTripsRoute
 }
@@ -145,6 +154,7 @@ export interface FileRouteTypes {
     | '/employees'
     | '/manifest'
     | '/pos'
+    | '/reports'
     | '/routes'
     | '/trips'
   fileRoutesByTo: FileRoutesByTo
@@ -159,6 +169,7 @@ export interface FileRouteTypes {
     | '/employees'
     | '/manifest'
     | '/pos'
+    | '/reports'
     | '/routes'
     | '/trips'
   id:
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '/_authenticated/employees'
     | '/_authenticated/manifest'
     | '/_authenticated/pos'
+    | '/_authenticated/reports'
     | '/_authenticated/routes'
     | '/_authenticated/trips'
   fileRoutesById: FileRoutesById
@@ -219,6 +231,13 @@ declare module '@tanstack/react-router' {
       path: '/routes'
       fullPath: '/routes'
       preLoaderRoute: typeof AuthenticatedRoutesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/reports': {
+      id: '/_authenticated/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof AuthenticatedReportsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/pos': {
@@ -289,6 +308,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedEmployeesRoute: typeof AuthenticatedEmployeesRoute
   AuthenticatedManifestRoute: typeof AuthenticatedManifestRoute
   AuthenticatedPosRoute: typeof AuthenticatedPosRoute
+  AuthenticatedReportsRoute: typeof AuthenticatedReportsRoute
   AuthenticatedRoutesRoute: typeof AuthenticatedRoutesRoute
   AuthenticatedTripsRoute: typeof AuthenticatedTripsRoute
 }
@@ -302,6 +322,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedEmployeesRoute: AuthenticatedEmployeesRoute,
   AuthenticatedManifestRoute: AuthenticatedManifestRoute,
   AuthenticatedPosRoute: AuthenticatedPosRoute,
+  AuthenticatedReportsRoute: AuthenticatedReportsRoute,
   AuthenticatedRoutesRoute: AuthenticatedRoutesRoute,
   AuthenticatedTripsRoute: AuthenticatedTripsRoute,
 }
